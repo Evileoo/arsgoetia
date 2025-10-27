@@ -91,3 +91,44 @@ button:hover {
     height: 100vh;
     background: #000;
 }
+
+#pause-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pause-screen.hidden {
+    display: none;
+}
+
+.pause-menu {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    min-width: 200px;
+}
+
+.pause-menu button {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 1.2em;
+}
+
+#quit-btn {
+    background: #ff4444;
+}
+
+#quit-btn:hover {
+    background: #ff0000;
+}
