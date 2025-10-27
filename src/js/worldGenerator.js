@@ -2,9 +2,9 @@ class WorldGenerator {
     constructor(tileSize = 32) {
         this.tileSize = tileSize;
         this.tiles = new Map();
-        this.BIOME_SIZE = 2000; // Distance moyenne entre les centres des biomes
+        this.BIOME_SIZE = 10000; // Distance moyenne entre les centres des biomes
         this.biomePoints = new Map(); // Cache pour les points de contrôle des biomes
-        this.POINTS_PER_BIOME = 15; // Nombre de points de contrôle par biome
+        this.POINTS_PER_BIOME = 30; // Nombre de points de contrôle par biome
     }
 
     // Génère des points de contrôle pour un biome de manière déterministe

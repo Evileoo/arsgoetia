@@ -1,3 +1,21 @@
+// Gestion de la navigation
+document.addEventListener('DOMContentLoaded', () => {
+    // Éléments de l'interface
+    const homeScreen = document.getElementById('home-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const playBtn = document.getElementById('play-btn');
+    
+    // Gestionnaire pour le bouton jouer
+    playBtn.addEventListener('click', () => {
+        homeScreen.classList.remove('active');
+        homeScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+        gameScreen.classList.add('active');
+        // Démarre une nouvelle partie
+        new Game();
+    });
+});
+
 class Game {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');

@@ -6,7 +6,83 @@
 
 body {
     overflow: hidden;
-    background: #000;
+    background: #1a1a1a;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#home-screen, #game-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#home-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-screen.hidden {
+    display: none;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    background: #4a4a4a;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+button:hover {
+    background: #666;
+    transform: scale(1.05);
+}
+
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    font-size: 1.1em;
+}
+
+.large-btn {
+    padding: 20px 60px;
+    font-size: 2em;
+    font-weight: bold;
+    background: #4CAF50;
+}
+
+.large-btn:hover {
+    background: #45a049;
+}
+
+.medium-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+}
+
+.bottom-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.small-btn {
+    padding: 12px 24px;
+    font-size: 1em;
 }
 
 #gameCanvas {

@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu Procédural</title>
+    <title>Arsgoetia</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <div id="home-screen" class="active">
+        <button id="ranking-btn" class="top-right">Classement</button>
+        <div class="menu-container">
+            <button id="stats-btn" class="medium-btn">Statistiques</button>
+            <button id="play-btn" class="large-btn">JOUER</button>
+            <div class="bottom-buttons">
+                <button id="equipment-btn" class="small-btn">Équipement</button>
+                <button id="inventory-btn" class="small-btn">Inventaire</button>
+            </div>
+        </div>
+    </div>
+    <div id="game-screen" class="hidden">
+        <canvas id="gameCanvas"></canvas>
+    </div>
     <script src="js/worldGenerator.js"></script>
     <script src="js/player.js"></script>
     <script src="js/main.js"></script>
