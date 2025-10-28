@@ -63,10 +63,23 @@ class Player {
     }
 
     update() {
-        if (this.keys.up) this.y -= this.speed;
-        if (this.keys.down) this.y += this.speed;
-        if (this.keys.left) this.x -= this.speed;
-        if (this.keys.right) this.x += this.speed;
+        let dx = 0;
+        let dy = 0;
+        
+        if (this.keys.up) dy -= 1;
+        if (this.keys.down) dy += 1;
+        if (this.keys.left) dx -= 1;
+        if (this.keys.right) dx += 1;
+
+        // Normalize diagonal movement
+        if (dx !== 0 && dy !== 0) {
+            const normalizer = 1 / Math.sqrt(2);
+            dx *= normalizer;
+            dy *= normalizer;
+        }
+
+        this.x += dx * this.speed;
+        this.y += dy * this.speed;
     }
 
     render(ctx, screenWidth, screenHeight) {
