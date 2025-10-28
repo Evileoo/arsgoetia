@@ -3,7 +3,10 @@ class Player {
         this.x = x;
         this.y = y;
         this.size = size;
-        this.speed = 5;
+        this.baseSpeed = 5;
+        this.speed = this.baseSpeed;
+        this.slowTimer = 0; // frames remaining during which movement is slowed
+        this.collision = true; // le joueur participe aux collisions
         this.setupControls();
     }
 
@@ -78,8 +81,12 @@ class Player {
             dy *= normalizer;
         }
 
-        this.x += dx * this.speed;
-        this.y += dy * this.speed;
+        // Applique ralentissement si nécessaire
+        const speedMultiplier = this.slowTimer > 0 ? 0.5 : 1.0;
+        this.x += dx * this.speed * speedMultiplier;
+        this.y += dy * this.speed * speedMultiplier;
+
+        if (this.slowTimer > 0) this.slowTimer--;
     }
 
     render(ctx, screenWidth, screenHeight) {
@@ -91,5 +98,20 @@ class Player {
         ctx.beginPath();
         ctx.arc(centerX, centerY, this.size / 2, 0, Math.PI * 2);
         ctx.fill();
+    }
+
+    // Fournit les bounds AABB du joueur en coordonnées monde (x,y centre)
+    getBounds() {
+        return {
+            x: this.x - this.size / 2,
+            y: this.y - this.size / 2,
+            w: this.size,
+            h: this.size
+        };
+    }
+
+    // Retourne le vecteur de mouvement récent (utiliser prev positions provenant de Game)
+    getMovementVector(prevX, prevY) {
+        return { x: this.x - prevX, y: this.y - prevY };
     }
 }
