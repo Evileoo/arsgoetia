@@ -73,6 +73,10 @@ class Game {
     init() {
         this.world = new WorldGenerator(32); // Taille des tuiles de 32px
         this.player = new Player(0, 0); // Le joueur commence à la position 0,0
+        
+        // Équipe la compétence de coup d'épée
+        this.player.addAutoSkill(new SwordSlash());
+        
         // Liste des entités (ennemis, NPCs, etc.)
         this.entities = [];
         // Liste des projectiles actifs
@@ -99,7 +103,7 @@ class Game {
         // Sauvegarde de la position du joueur avant mouvement pour détecter la direction du mouvement
         const prevPlayerX = this.player.x;
         const prevPlayerY = this.player.y;
-        this.player.update();
+        this.player.update(this.entities);
         
         // Calcul de l'offset pour le rendu du monde
         this.offsetX = this.canvas.width / 2 - this.player.x;

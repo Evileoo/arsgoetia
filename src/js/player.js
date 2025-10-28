@@ -7,6 +7,9 @@ class Player {
         this.speed = this.baseSpeed;
         this.slowTimer = 0; // frames remaining during which movement is slowed
         this.collision = true; // le joueur participe aux collisions
+        this.lastMoveX = 0; // pour connaître la dernière direction
+        this.lastMoveY = -1; // vers le haut par défaut
+        this.autoSkills = []; // liste des compétences automatiques
         this.setupControls();
     }
 
@@ -65,7 +68,7 @@ class Player {
         });
     }
 
-    update() {
+    update(entities = []) {
         let dx = 0;
         let dy = 0;
         
@@ -86,7 +89,18 @@ class Player {
         this.x += dx * this.speed * speedMultiplier;
         this.y += dy * this.speed * speedMultiplier;
 
+        // Met à jour la dernière direction si on se déplace
+        if (dx !== 0 || dy !== 0) {
+            this.lastMoveX = dx;
+            this.lastMoveY = dy;
+        }
+
         if (this.slowTimer > 0) this.slowTimer--;
+
+        // Mise à jour des compétences automatiques
+        for (const skill of this.autoSkills) {
+            skill.update(entities);
+        }
     }
 
     render(ctx, screenWidth, screenHeight) {
@@ -94,6 +108,12 @@ class Player {
         const centerX = screenWidth / 2;
         const centerY = screenHeight / 2;
 
+        // Render skills first (under player)
+        for (const skill of this.autoSkills) {
+            skill.render(ctx, centerX - this.x, centerY - this.y);
+        }
+
+        // Render player
         ctx.fillStyle = '#FF0000';
         ctx.beginPath();
         ctx.arc(centerX, centerY, this.size / 2, 0, Math.PI * 2);
@@ -113,5 +133,16 @@ class Player {
     // Retourne le vecteur de mouvement récent (utiliser prev positions provenant de Game)
     getMovementVector(prevX, prevY) {
         return { x: this.x - prevX, y: this.y - prevY };
+    }
+
+    // Ajoute une compétence automatique
+    addAutoSkill(skill) {
+        skill.setOwner(this);
+        this.autoSkills.push(skill);
+    }
+
+    // Retourne l'angle vers lequel le joueur fait face (basé sur son dernier mouvement)
+    getFacingAngle() {
+        return Math.atan2(this.lastMoveY, this.lastMoveX);
     }
 }
